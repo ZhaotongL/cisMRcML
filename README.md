@@ -22,7 +22,7 @@ devtools::install_github("ZhaotongL/cisMRcML")
 
 ## Usage
 
-The [vignette](https://github.com/ZhaotongL/cisMRcML/main/vignettes/Vignette.html) will provide a good start point for cis Mendelian randomization analysis using cisMRcML package.
+The [vignette](https://github.com/ZhaotongL/cisMRcML/tree/main/Example_Vignette.html) will provide a good start point for cis Mendelian randomization analysis using cisMRcML package.
 
 ## Contact us 
 
