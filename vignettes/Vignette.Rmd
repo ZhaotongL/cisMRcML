@@ -1,0 +1,77 @@
+---
+title: "cisMR-cML for robust cis Mendelian randomization analysis"
+output: rmarkdown::html_vignette
+theme: unite
+highlight: zenburn
+vignette: >
+  %\VignetteIndexEntry{Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette shows an example of applying cisMR-cML to infer causal relationship of LDL on CAD using cis-SNPs on the PCSK9 region.
+
+```{r setup}
+library(cisMRcML)
+```
+
+## Example 
+
+We provide the pre-processed data for LDL and CAD on the PCSK9 region. 
+```{r}
+data("mr_dat")
+str(mr_dat)
+```
+As shown above, 9 SNPs in the PCSK9 region were used in the analysis (the first real data application in the manuscript), in which 8 SNPs (shown in `mr_dat$exp_IV`) were jointly associated (selected by [GCTA-COJO](https://yanglab.westlake.edu.cn/software/gcta/#COJO)) with LDL, and 1 SNP (shown in `mr_dat$out_IV`) was associate with CAD. `mr_dat$LD_mat` is the LD/correlation matrix among the 9 SNPs, which was estimated based on the UK Biobank White-ancestry individuals.
+
+`mr_dat$exp_df` and `mr_dat$out_df` correspond to the GWAS summary statistics for LDL (exposure) and CAD (outcome) respectively. In particular, `mr_dat$exp_df$b`, `mr_dat$exp_df$se`, `mr_dat$exp_df$p` are the raw GWAS marginal summary statistics, and `mr_dat$exp_df$bJ` is the **conditional** genetic effect estimates on the exposure (similar for `mr_dat$out_df`), which can be calculated as follows (see Manuscript Section 4.2):
+
+```{r, eval=FALSE}
+mr_dat$exp_df$cor = mr_dat$exp_df$b / sqrt(mr_dat$exp_df$b^2 + (mr_dat$exp_df$N - 2) *
+                                             mr_dat$exp_df$se^2)
+mr_dat$exp_df$bJ = solve(mr_dat$LD_mat) %*% mr_dat$exp_df$cor
+mr_dat$out_df$cor = mr_dat$out_df$b / sqrt(mr_dat$out_df$b^2 + (mr_dat$out_df$N - 2) *
+                                             mr_dat$out_df$se^2)
+mr_dat$out_df$bJ = solve(mr_dat$LD_mat) %*% mr_dat$out_df$cor
+```
+
+Next, we apply cisMR-cML with 100 data perturbations with 5 random starts where $\theta^{(0)}\sim U(-0.1,0.1)$:
+```{r}
+b_exp_cond=mr_dat$exp_df$bJ
+b_out_cond=mr_dat$out_df$bJ 
+Sig_exp1 = solve(mr_dat$LD_mat) %*% (mr_dat$exp_df$se_cor %o% mr_dat$exp_df$se_cor * mr_dat$LD_mat) %*%
+  solve(mr_dat$LD_mat)
+Sig_out1 = solve(mr_dat$LD_mat) %*% (mr_dat$out_df$se_cor %o% mr_dat$out_df$se_cor * mr_dat$LD_mat) %*%
+  solve(mr_dat$LD_mat)
+Sig_exp_inv=solve(Sig_exp1)
+Sig_out_inv=solve(Sig_out1)
+
+ciscML_res = cismr_cML_DP(b_exp=b_exp_cond,b_out=b_out_cond,
+                          Sig_exp_inv=Sig_exp_inv,Sig_out_inv=Sig_out_inv,maxit=200,
+                          n = mr_dat$N1,random_start = 5,
+                          min_theta_range=-0.1,max_theta_range=0.1,
+                          num_pert=100,random_start_pert=5,random_seed = 12345)
+```
+
+```{r}
+cat("The estimated effect of the exposure on outcome: ", ciscML_res$BIC_DP_theta)
+cat("Standard error of the causal estimate: ", ciscML_res$BIC_DP_se)
+cat("P-value for the causal estimate: ", ciscML_res$BIC_DP_p)
+```
+
+At this point, we have reproduced the LDL-CAD result in our manuscript.
+
+```{r}
+sessionInfo()
+```
+
+
+
+

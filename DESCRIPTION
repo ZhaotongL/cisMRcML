@@ -1,0 +1,21 @@
+Package: cisMRcML
+Title: A robust cisMR method based on constrained maximum likelihood
+Version: 0.0.0.9000
+Authors@R: 
+    person("Zhaotong", "Lin", , "zl23k@fsu.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8723-4392"))
+Description: cisMRcML is to perform robust cis-Mendelian randomization using gene expression or protein as the exposure.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports:
+    MASS,
+    numDeriv
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
