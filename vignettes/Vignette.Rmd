@@ -1,13 +1,17 @@
 ---
-title: "Vignette"
+title: "cisMR-cML for robust cis Mendelian randomization analysis"
 output: rmarkdown::html_vignette
 theme: unite
+author: Zhaotong Lin
+date: March 13, 2024
 highlight: zenburn
 vignette: >
-  %\VignetteIndexEntry{Vignette}
+  %\VignetteIndexEntry{cisMR-cML for robust cis Mendelian randomization analysis}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
