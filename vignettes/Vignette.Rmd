@@ -72,6 +72,8 @@ cat("P-value for the causal estimate: ", ciscML_res$BIC_DP_p)
 
 At this point, we have reproduced the LDL-CAD result in our manuscript.
 
+If you failed to reproduce the results, please make sure you have the same R packages version (especially MASS_7.3-51.4) as those in the [built vignette](https://rpubs.com/ZhaotongL/cisMRcML_vignette).
+
 ```{r}
 sessionInfo()
 ```
