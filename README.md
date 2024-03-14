@@ -22,7 +22,7 @@ devtools::install_github("ZhaotongL/cisMRcML")
 
 ## Usage
 
-The [vignette](http://rpubs.com/ZhaotongL/cisMRcML_vignette) will provide a good start point for cis Mendelian randomization analysis using cisMRcML package.
+The [vignette](http://rpubs.com/ZhaotongL/cisMRcML_vignette) will provide a good starting point for cis Mendelian randomization analysis using cisMRcML package.
 
 The software has been tested on MacOS 14.3 and R version 3.6.3.
 
@@ -30,15 +30,6 @@ The software has been tested on MacOS 14.3 and R version 3.6.3.
 
 Zhaotong Lin, <zl23k@fsu.edu>
 
-## Reference 
+## Other information
 
-<!-- What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so: -->
-<!-- ```{r cars} -->
-<!-- summary(cars) -->
-<!-- ``` -->
-<!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. -->
-<!-- You can also embed plots, for example: -->
-<!-- ```{r pressure, echo = FALSE} -->
-<!-- plot(pressure) -->
-<!-- ``` -->
-<!-- In that case, don't forget to commit and push the resulting figure files, so they display on GitHub. -->
+For code used in the simulation studies and real data analysis, please see [this repository](https://github.com/ZhaotongL/cisMR-paper).
