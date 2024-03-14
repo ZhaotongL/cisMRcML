@@ -9,20 +9,22 @@
 The goal of cisMRcML is to perform robust (to horizontal pleiotropy)
 cis-Mendelian randomization using gene expression or protein as the
 exposure.
-<!-- More detail is coming, but if you want to try it out first, feel free to contact me at zl23k@fsu.edu.  -->
 
 ## Installation
 
-Install the development version from [GitHub](https://github.com/) with:
+cisMRcML can be used on any operating system. R needs to be installed. Package ``devtools`` is required for the installation. The installation would take a minute or so.
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("ZhaotongL/cisMRcML")
 ```
 
+
 ## Usage
 
 The [vignette](http://rpubs.com/ZhaotongL/cisMRcML_vignette) will provide a good start point for cis Mendelian randomization analysis using cisMRcML package.
+
+The software has been tested on MacOS 14.3 and R version 3.6.3.
 
 ## Contact us 
 

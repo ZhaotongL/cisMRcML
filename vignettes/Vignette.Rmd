@@ -57,11 +57,14 @@ Sig_out1 = solve(mr_dat$LD_mat) %*% (mr_dat$out_df$se_cor %o% mr_dat$out_df$se_c
 Sig_exp_inv=solve(Sig_exp1)
 Sig_out_inv=solve(Sig_out1)
 
+t0 = proc.time()[3]
 ciscML_res = cismr_cML_DP(b_exp=b_exp_cond,b_out=b_out_cond,
                           Sig_exp_inv=Sig_exp_inv,Sig_out_inv=Sig_out_inv,maxit=200,
                           n = mr_dat$N1,random_start = 5,
                           min_theta_range=-0.1,max_theta_range=0.1,
                           num_pert=100,random_start_pert=5,random_seed = 12345)
+t1 = proc.time()[3]
+cat("The running time is: ", t1 - t0, " seconds.")
 ```
 
 ```{r}
